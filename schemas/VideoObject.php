@@ -13,6 +13,19 @@ class VideoObject extends MediaObject {
 	public static function getFriendlyName() {
 		return 'Video Object';
 	}
+
+	/**
+	 * @description The frame size of the video.
+	 * @type Text
+	 */
+	public $videoFrameSize;
+	
+	/**
+	 * @description The quality of the video.
+	 * @type Text
+	 */
+	public $videoQuality;
+	
 	
 }
 

@@ -19,6 +19,24 @@ class MediaObject extends CreativeWork implements ISchema {
 	 * @type URL
 	 */
 	public $contentURL;
+
+	/**
+	 * @description File size in (mega/kilo) bytes.
+	 * @type Text
+	 */
+	public $contentSize;
+	
+	/**
+	 * @description mp3, mpeg4, etc.
+	 * @type Text
+	 */
+	public $encodingFormat;
+	
+	/**
+	 * @description The caption for this object.
+	 * @type Text
+	 */
+	public $caption;
 	
 }
 
