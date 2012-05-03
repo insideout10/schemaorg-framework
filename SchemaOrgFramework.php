@@ -36,7 +36,8 @@ class SchemaOrgFramework {
 			'Product' => '/schemas/Product.php',
 			'Thing' => '/schemas/Thing.php',
 			'VideoObject' => '/schemas/VideoObject.php',
-			'WordPressRepository' => '/wordpress/WordPressRepository.php'
+			'WordPressRepository' => '/wordpress/WordPressRepository.php',
+			'SchemaServices' => '/services/SchemaServices.php'
 			);
 	
 	// the list of schemas previously loaded.
