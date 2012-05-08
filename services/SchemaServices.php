@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @requires WordPressFramework
+ * @requires WordLiftPlugin
+ */
 class SchemaServices {
 
     /**
@@ -30,6 +34,91 @@ class SchemaServices {
         });
         
         return $items;
+    }
+    
+    /**
+     * @service ajax
+     * @action schema-org.create-post
+     * @authentication none
+     * @requireCapabilities publish_posts
+     */
+    public function createPost($requestBody = null) {
+        
+        $properties = json_decode($requestBody, true);
+        $return = $this->create($properties);
+        
+        echo $return;
+        
+        return AjaxService::CALLBACK_RETURN_NULL;
+        // return $instance;
+    }
+    
+    private function create($properties) {
+
+        if (0 < sizeof($properties) &&  is_array($properties[0])) {
+            $value = array();
+            foreach ($properties as $property) {
+                array_push( $value, $this->create($property));
+            }
+            return implode(",", $value);
+        }
+
+        $post = array(
+            WordPressFramework::POST_TYPE => WordLiftPlugin::POST_TYPE
+        );
+        
+        $post_meta = array();
+        
+        foreach ($properties as $key => $value) {
+            
+            // set the schema-type.
+            if (SchemaOrgFramework::TYPE === $key) {
+                $post_meta[WordLiftPlugin::SCHEMA_TYPE] = $value;                
+                continue;
+            }
+
+            // create dependencies.
+            if (true === is_array($value)) {
+                $value = $this->create($value);
+
+                if (null !== $post_meta[WordLiftPlugin::FIELD_PREFIX . $key])
+                    $post_meta[WordLiftPlugin::FIELD_PREFIX . $key] = $post_meta[WordLiftPlugin::FIELD_PREFIX . $key] . "," . $value;
+                else
+                    $post_meta[WordLiftPlugin::FIELD_PREFIX . $key] = $value;
+
+                continue;
+            }
+
+            // set the name.
+            if (SchemaOrgFramework::NAME === $key) {
+                $post[WordPressFramework::POST_TITLE] = $value;
+                // we want to save this property also in the custom fields, we don't "continue".
+            }
+
+            // set this post custom-fields.
+            $post_meta[WordLiftPlugin::FIELD_PREFIX . $key] = $value;
+        }
+        
+        if (null === $post[WordPressFramework::POST_TITLE])
+            $post[WordPressFramework::POST_TITLE] = uniqid("", true);
+
+        if (null === $post[WordPressFramework::POST_NAME])
+            $post[WordPressFramework::POST_NAME] = sanitize_title($post[WordPressFramework::POST_TITLE]);
+        
+        $post_id = wp_insert_post($post, true);
+        if ( is_wp_error($post_id) )
+            echo $post_id->get_error_message();
+
+        print_r($post);
+        print_r($post_meta);
+        
+        // echo $post_id;
+
+        foreach ($post_meta as $key => $value)
+            update_post_meta($post_id, strtolower($key), $value);
+
+        return $post[WordPressFramework::POST_NAME];
+
     }
     
 }

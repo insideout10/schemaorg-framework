@@ -11,28 +11,29 @@ class Place extends Thing {
 		return 'Place';
 	}
 	
-	/**
-	 * @type PostalAddress
-	 * @description Physical address of the item.
-	 */
-	public $address;		
+    // /**
+    //  * @type PostalAddress
+    //  * @description Physical address of the item.
+    //  */
+    // public $address;     
 	
-	/**
-	 * @type AggregateRating
-	 * @description The overall rating, based on a collection of reviews or ratings, of the item.
-	 */
-	public $aggregateRating;
+    // /**
+    //  * @type AggregateRating
+    //  * @description The overall rating, based on a collection of reviews or ratings, of the item.
+    //  */
+    // public $aggregateRating;
+
 	/**
 	 * @type Place
 	 * @description The basic containment relation between places.
 	 */
 	public $containedIn;
 	
-	/**
-	 * @type Event
-	 * @description Upcoming or past events associated with this place or organization.
-	 */
-	public $events;
+    // /**
+    //  * @type Event
+    //  * @description Upcoming or past events associated with this place or organization.
+    //  */
+    // public $events;
 	
 	/**
 	 * @type Text
@@ -47,11 +48,11 @@ class Place extends Thing {
 	 */
 	public $geo;
 	
-	/**
-	 * @type Text
-	 * @description A count of a specific user interactions with this item-for example, 20 UserLikes, 5 UserComments, or 300 UserDownloads. The user interaction type should be one of the sub types of UserInteraction.
-	 */
-	public $interactionCount;
+    // /**
+    //  * @type Text
+    //  * @description A count of a specific user interactions with this item-for example, 20 UserLikes, 5 UserComments, or 300 UserDownloads. The user interaction type should be one of the sub types of UserInteraction.
+    //  */
+    // public $interactionCount;
 	
 	/**
 	 * @type URL
@@ -59,17 +60,17 @@ class Place extends Thing {
 	 */
 	public $maps;
 	
-	/**
-	 * @type Photograph or ImageObject
-	 * @description Photographs of this place.
-	 */
-	public $photos;
+    // /**
+    //  * @type Photograph or ImageObject
+    //  * @description Photographs of this place.
+    //  */
+    // public $photos;
 	
-	/**
-	 * @type Review
-	 * @description Review of the item.
-	 */
-	public $reviews;
+    // /**
+    //  * @type Review
+    //  * @description Review of the item.
+    //  */
+    // public $reviews;
 	
 	/**
 	 * @type Text

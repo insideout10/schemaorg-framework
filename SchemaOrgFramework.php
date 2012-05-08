@@ -19,6 +19,9 @@ spl_autoload_register(array('SchemaOrgFramework', 'autoload'));
  */
 class SchemaOrgFramework {
 	
+	const TYPE = "@type";
+	const NAME = "name";
+	
 	// the list of classes part of this framework, for autoloading.
 	private static $_classes = array(
 			'IItemRepository' => '/IItemRepository.php',
