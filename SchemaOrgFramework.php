@@ -79,7 +79,7 @@ class SchemaOrgFramework {
 				if ('php' == pathinfo($entry, PATHINFO_EXTENSION)) {
 					$class = pathinfo($entry, PATHINFO_FILENAME);
 					$schema = new $class();
-					$schemas[$schema::getFriendlyName()] = $class; 
+					$schemas[$schema->getFriendlyName()] = $class; 
 				}
 			}
 			

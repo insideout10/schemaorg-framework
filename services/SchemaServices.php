@@ -6,6 +6,12 @@
  */
 class SchemaServices {
 
+	private $logger;
+
+	function __construct() {
+		$this->logger 		= Logger::getLogger(__CLASS__);
+	}
+
     /**
      * @service ajax
      * @action schema-org.posts
@@ -27,11 +33,12 @@ class SchemaServices {
 
         // clean out null properties
         // $items = array_filter(get_object_vars($items));
-        array_walk_recursive($items, function(&$array) {
-        	$type = get_class($array);
-        	$array = array_filter((array)$array);
-        	$array['@type'] = $type;
-        });
+        array_walk_recursive($items, create_function(
+                '&$array',
+                '$type = get_class($array);' .
+        	    '$array = array_filter((array)$array);' .
+        	    '$array[\'@type\'] = $type;'
+        ));
         
         return $items;
     }
@@ -43,6 +50,8 @@ class SchemaServices {
      * @requireCapabilities publish_posts
      */
     public function createPost($requestBody = null) {
+        
+        $this->logger->debug("requestBody: " . $requestBody);
         
         $properties = json_decode($requestBody, true);
         $return = $this->create($properties);
